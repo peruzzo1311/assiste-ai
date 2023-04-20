@@ -7,17 +7,21 @@ export default function SearchBar({ ...props }: IInputProps) {
     <Input
       {...props}
       variant={'filled'}
+      bg={'muted.600'}
       InputLeftElement={
-        <Icon as={<Ionicons name={'search'} />} size={6} ml='2' />
+        <Icon
+          as={<Ionicons name={'search'} />}
+          size={6}
+          ml='2'
+          color={'muted.400'}
+        />
       }
       placeholder='Oque vamos assistir hoje?'
       fontSize={'md'}
       color={'muted.100'}
       m={'auto'}
-      bg={'muted.600'}
-      borderWidth={1}
+      borderWidth={0}
       borderRadius={24}
-      borderColor={'muted.500'}
       _focus={{
         borderColor: 'muted.400',
         borderWidth: 1,
