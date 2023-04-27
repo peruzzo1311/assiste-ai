@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import { AppRoutes } from './src/app.routes'
+import AppRoutes from './src/routes/index'
 import { NativeBaseProvider } from 'native-base'
 import { theme } from './src/themes/default'
 import { useEffect, useState } from 'react'
@@ -20,7 +20,7 @@ export default function App() {
   useEffect(() => {
     const LoadFonts = async () => {
       await Font.loadAsync(customFonts)
-      await new Promise((resolve) => setTimeout(resolve, 2500))
+      await new Promise((resolve) => setTimeout(resolve, 2000))
       await SplashScreen.hideAsync()
       setIsFontLoaded(true)
     }
@@ -31,10 +31,8 @@ export default function App() {
   if (isFontLoaded) {
     return (
       <NativeBaseProvider theme={theme}>
-        <NavigationContainer>
-          <AppRoutes />
-          <StatusBar style='light' />
-        </NavigationContainer>
+        <AppRoutes />
+        <StatusBar style='light' />
       </NativeBaseProvider>
     )
   }
