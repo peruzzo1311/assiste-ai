@@ -1,11 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import AppRoutes from './src/routes/index'
 import { NativeBaseProvider } from 'native-base'
 import { theme } from './src/themes/default'
 import { useEffect, useState } from 'react'
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
+import AppRoutes from './src/routes'
+
 const customFonts = {
   'Montserrat-Regular': require('./src/assets/fonts/Montserrat-Regular.ttf'),
   'Montserrat-SemiBold': require('./src/assets/fonts/Montserrat-SemiBold.ttf'),

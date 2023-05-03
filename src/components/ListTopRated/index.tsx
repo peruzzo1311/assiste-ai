@@ -1,18 +1,26 @@
-import { AspectRatio, Badge, Box, HStack, Image, ScrollView } from 'native-base'
+import { FlatList } from 'native-base'
 import React, { useEffect, useState } from 'react'
 
 import { getTopRatedMovies } from '../../api/TMDB'
 import ITopRatedMovies from '../../interfaces/ITopRatedMovies'
-import styles from './styles'
+import ListTopRatedItem from '../ListTopRatedItem'
+import Spinner from '../Spinner'
 
 export default function ListTopRated() {
   const [topRatedMovies, setTopRatedMovies] = useState<ITopRatedMovies[]>([])
-  const urlImage = 'https://image.tmdb.org/t/p/w500'
+
+  const renderItem = ({ item }: { item: ITopRatedMovies }) => (
+    <ListTopRatedItem {...item} />
+  )
 
   useEffect(() => {
     getTopRatedMovies()
       .then((movies) => {
-        let top10 = movies.slice(0, 10)
+        let top10 = movies.splice(0, 10)
+
+        for (let movie of top10) {
+          movie.index = top10.indexOf(movie) + 1
+        }
 
         setTopRatedMovies(top10)
       })
@@ -22,38 +30,12 @@ export default function ListTopRated() {
   }, [])
 
   return (
-    <ScrollView horizontal>
-      <HStack space={8} bgColor={'muted.800'} p={4} rounded={'2xl'}>
-        {topRatedMovies.map((movie, index) => (
-          <Box key={movie.id}>
-            <AspectRatio
-              ratio={1 / 1.33}
-              height={350}
-              rounded={'3xl'}
-              overflow={'hidden'}
-            >
-              <Image
-                resizeMode='cover'
-                source={{ uri: `${urlImage}${movie.poster_path}` }}
-                alt={movie.title}
-              />
-            </AspectRatio>
-
-            <Badge
-              rounded={'full'}
-              style={styles.Badge}
-              shadow={3}
-              _text={{
-                color: 'muted.900',
-                fontWeight: 'bold',
-                fontSize: '2xl',
-              }}
-            >
-              {index + 1}
-            </Badge>
-          </Box>
-        ))}
-      </HStack>
-    </ScrollView>
+    <FlatList
+      horizontal
+      keyExtractor={(item) => item.id.toString()}
+      data={topRatedMovies}
+      renderItem={renderItem}
+      ListEmptyComponent={<Spinner />}
+    />
   )
 }

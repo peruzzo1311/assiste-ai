@@ -1,11 +1,10 @@
-import React from 'react'
+import TabNavigation from './tabNavigation'
 import { NavigationContainer } from '@react-navigation/native'
-import { BottomTabs } from './bottomTab'
 
-export default function AppRoutes(props) {
+export default function AppRoutes() {
   return (
     <NavigationContainer>
-      <BottomTabs />
+      <TabNavigation />
     </NavigationContainer>
   )
 }
