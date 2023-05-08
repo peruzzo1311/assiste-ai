@@ -10,4 +10,8 @@ export default interface IListMovies {
       name: string
     }
   ]
+  genre_ids?: number[]
+  vote_average?: number
+  release_date?: string
+  popularity?: number
 }

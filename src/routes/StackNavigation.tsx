@@ -5,7 +5,9 @@ import {
 
 import Details from '../screens/Details'
 import Home from '../screens/Home'
-import MovieList from '../screens/MovieList'
+import MoviesHorizontal from '../screens/MoviesHorizontal'
+import MoviesVertical from '../screens/MoviesVertical'
+import Person from '../screens/Person'
 import Search from '../screens/Search'
 import WatchList from '../screens/WatchList'
 
@@ -15,13 +17,15 @@ export function HomeNavigation() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        headerShown: false,
       }}
     >
       <Stack.Screen name='Home' component={Home} />
+      <Stack.Screen name='Person' component={Person} />
       <Stack.Screen name='Details' component={Details} />
-      <Stack.Screen name='MovieList' component={MovieList} />
+      <Stack.Screen name='MoviesVertical' component={MoviesVertical} />
+      <Stack.Screen name='MoviesHorizontal' component={MoviesHorizontal} />
     </Stack.Navigator>
   )
 }

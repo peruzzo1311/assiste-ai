@@ -1,9 +1,9 @@
 import { FlatList } from 'native-base'
 import React from 'react'
 
-import Spinner from '../Spinner'
+import MoviesHorizontalItem from '../../components/MoviesHorizontalItem'
+import Spinner from '../../components/Spinner'
 import IListMovies from '../../interfaces/IListMovies'
-import MoviesHorizontalItem from '../MoviesHorizontalItem'
 
 type Props = {
   movies: IListMovies[]

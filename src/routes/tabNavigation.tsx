@@ -48,7 +48,7 @@ export default function TabNavigation() {
         component={WatchListNavigation}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name='bookmark' size={size} color={color} />
+            <Ionicons name='person' size={size} color={color} />
           ),
         }}
       />

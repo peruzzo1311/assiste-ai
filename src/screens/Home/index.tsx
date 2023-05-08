@@ -2,21 +2,22 @@ import { Box, ScrollView, Text, View } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import ListTopRated from '../../components/ListTopRated/'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { getPopularMovies } from '../../api/TMDB'
-import MoviesHorizontal from '../../components/MoviesHorizontal'
+import { getPopularMovies, getUpComingMovies } from '../../api/TMDB'
+import MoviesHorizontal from '../MoviesHorizontal'
 import IListMovies from '../../interfaces/IListMovies'
 
 export default function Home({ navigation }) {
   const [popularMovies, setPopularMovies] = useState<IListMovies[]>([])
-
-  const getMovies = () => {
-    getPopularMovies()
-      .then((movies) => setPopularMovies(movies))
-      .catch((error) => console.log(error.message))
-  }
+  const [upComingMovies, setUpComingMovies] = useState<IListMovies[]>([])
 
   useEffect(() => {
-    getMovies()
+    getPopularMovies(1)
+      .then((movies) => setPopularMovies(movies))
+      .catch((error) => console.log(error.message))
+
+    getUpComingMovies(1)
+      .then((movies) => setUpComingMovies(movies))
+      .catch((error) => console.log(error.message))
   }, [])
 
   return (
@@ -33,7 +34,9 @@ export default function Home({ navigation }) {
         <View mt={8}>
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('MovieList', { movies: popularMovies })
+              navigation.navigate('MoviesVertical', {
+                type: 'Populares',
+              })
             }
           >
             <View
@@ -53,6 +56,33 @@ export default function Home({ navigation }) {
           </TouchableOpacity>
 
           <MoviesHorizontal movies={popularMovies} />
+        </View>
+
+        <View mt={8}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('MoviesVertical', {
+                type: 'Em breve',
+              })
+            }
+          >
+            <View
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+              alignItems={'center'}
+              px={4}
+            >
+              <Text color={'muted.100'} fontSize={'xl'} fontWeight={'bold'}>
+                Em breve
+              </Text>
+
+              <Text color={'#FFCC00'} fontSize={'sm'} fontWeight={'bold'}>
+                Ver mais
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <MoviesHorizontal movies={upComingMovies} />
         </View>
       </ScrollView>
     </Box>

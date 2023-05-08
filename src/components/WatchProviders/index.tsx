@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Stagger, Image, Text } from 'native-base'
 import { getWatchProviders } from '../../api/TMDB'
 import IWatchProviders from '../../interfaces/IWatchProviders.js'
@@ -9,8 +9,7 @@ type Props = {
 }
 
 export default function WatchProviders({ show, id }: Props) {
-  const [watchProviders, setWatchProviders] =
-    React.useState<IWatchProviders[]>()
+  const [watchProviders, setWatchProviders] = useState<IWatchProviders[]>()
   const urlImage = 'https://image.tmdb.org/t/p/w500'
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export default function WatchProviders({ show, id }: Props) {
         },
       }}
     >
-      {watchProviders &&
+      {watchProviders ? (
         watchProviders.map((provider) => (
           <Box
             key={provider.provider_id}
@@ -79,7 +78,18 @@ export default function WatchProviders({ show, id }: Props) {
               borderRadius={'lg'}
             />
           </Box>
-        ))}
+        ))
+      ) : (
+        <Text
+          color={'muted.300'}
+          alignSelf={'center'}
+          fontSize={'md'}
+          fontWeight={'bold'}
+          marginTop={4}
+        >
+          Dísponível apenas nos cinemas.
+        </Text>
+      )}
     </Stagger>
   )
 }
